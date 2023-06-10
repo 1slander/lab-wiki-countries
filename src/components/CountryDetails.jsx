@@ -20,27 +20,55 @@ const CountryDetails = ({ countries }) => {
     return oneCountry.alpha3Code === countryCode;
   });
 
-  console.log(foundCountry);
+  const findCountryName = (countryCode) => {
+    const country = countries.find(
+      (country) => country.alpha3Code === countryCode
+    );
+    return country.name.common;
+  };
 
   return (
     <>
-      <img
-        src={`https://flagpedia.net/data/flags/icon/72x54/${foundCountry.alpha2Code.toLowerCase()}.png`}
-        alt={foundCountry.name.official}
-        width={'100px'}
-      />
-      <h2>{foundCountry.name.official}</h2>
-      <p>Capital: {foundCountry.capital[0]}</p>
-      <p>
-        Area: {foundCountry.area} Km<sup>2</sup>
-      </p>
-      {foundCountry.borders.map((borderCountry) => {
-        return (
-          <ul>
-            <li>{borderCountry}</li>;
-          </ul>
-        );
-      })}
+      <div className="col-7">
+        <img
+          src={`https://flagpedia.net/data/flags/icon/72x54/${foundCountry.alpha2Code.toLowerCase()}.png`}
+          alt={foundCountry.name.official}
+          width={'100px'}
+        />
+        <h1>{foundCountry.name.official}</h1>
+        <table className="table">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td style={{ widht: '30%' }}>Capital</td>
+              <td>{foundCountry.capital[0]}</td>
+            </tr>
+            <tr>
+              <td>Area</td>
+              <td>
+                {foundCountry.area} Km
+                <sup>2</sup>
+              </td>
+            </tr>
+            <tr>
+              <td>Borders</td>
+              <td>
+                {foundCountry.borders.map((borderCountry) => {
+                  return (
+                    <ul>
+                      <li>
+                        <Link to={`/${borderCountry.alpha3Code}`}>
+                          {findCountryName(borderCountry)}
+                        </Link>
+                      </li>
+                    </ul>
+                  );
+                })}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

@@ -15,14 +15,19 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <CountriesList countries={countriesData} />
 
-      <Routes>
-        <Route
-          path="/:countryCode"
-          element={<CountryDetails countries={countriesData} />}
-        />
-      </Routes>
+      <div className="container">
+        <div className="row">
+          <CountriesList countries={countriesData} />
+
+          <Routes>
+            <Route
+              path="/:countryCode"
+              element={<CountryDetails countries={countriesData} />}
+            />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }
